@@ -22,3 +22,14 @@ class Album(models.Model):
 
     def __str__(self):
         return self.name
+
+class Artist(models.Model):
+    name = models.CharField(max_length=500, null=False)
+    bio = models.TextField(max_length=1000, null=True)
+    image = models.URLField(max_length=300, null=True)
+
+    class Meta:
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
