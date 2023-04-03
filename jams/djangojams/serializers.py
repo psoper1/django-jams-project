@@ -11,3 +11,9 @@ class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
         fields = ['name',]
+
+class AlbumSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Album
+        fields = ['name', 'publish_date', 'cover_art', 'genres']
+        depth = 1

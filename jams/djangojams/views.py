@@ -23,3 +23,13 @@ def genre_list(request):
     for genre in list_genre:
         html += '<h1>%s</h1>' % genre
     return HttpResponse(html)
+class AlbumViewSet(viewsets.ModelViewSet):
+    queryset = Album.objects.all()
+    serializer_class = AlbumSerializer
+
+def album_list(request):
+    list_album = Album.objects.values_list('name', 'publish_date', 'cover_art', 'genres')
+    html = ''
+    for album in list_album:
+        html += '<h1>%s</h1>' % album
+    return HttpResponse(html)
