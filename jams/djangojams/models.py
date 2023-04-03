@@ -33,3 +33,24 @@ class Artist(models.Model):
 
     def __str__(self):
         return self.name
+
+class Song(models.Model):
+    name = models.CharField(max_length=200, null=False)
+    album = models.ForeignKey('Album', on_delete=models.PROTECT)
+    artist = models.ForeignKey('Artist', on_delete=models.PROTECT)
+
+    class Meta:
+        ordering = ['id']
+
+    def __str__(self):
+        return self.name
+
+class Artist_Songs(models.Model):
+    song = models.ForeignKey('Song', on_delete=models.PROTECT)
+    artist = models.ForeignKey('Artist', on_delete=models.PROTECT)
+
+    class Meta:
+        ordering = ['id']
+
+    def __str__(self):
+        return self.name
