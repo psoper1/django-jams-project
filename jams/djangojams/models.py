@@ -54,3 +54,7 @@ class Artist_Songs(models.Model):
 
     def __str__(self):
         return self.name
+
+class Playlist(models.Model):
+    name = models.CharField(max_length=200, null=False)
+    artist = models.ForeignKey('Artist', on_delete=models.PROTECT)
