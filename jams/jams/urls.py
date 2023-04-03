@@ -22,9 +22,11 @@ router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'genres', views.GenreViewSet)
 router.register(r'albums', views.AlbumViewSet)
+router.register(r'artists', views.ArtistViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('genres/', views.genre_list),
     path('albums/', views.album_list),
+    path('artists/', views.artist_list),
 ]

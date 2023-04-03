@@ -17,3 +17,8 @@ class AlbumSerializer(serializers.ModelSerializer):
         model = Album
         fields = ['name', 'publish_date', 'cover_art', 'genres']
         depth = 1
+
+class ArtistSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Artist
+        fields = ['name', 'bio', 'image']
