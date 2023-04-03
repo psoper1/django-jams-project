@@ -15,6 +15,7 @@ class Album(models.Model):
     name = models.CharField(max_length=500, null=False)
     publish_date = models.DateField(null=True)
     cover_art = models.URLField(max_length=300, null=True)
+    genres = models.ManyToManyField('Genre')
 
     class Meta:
         ordering = ['name']
