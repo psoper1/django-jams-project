@@ -18,8 +18,8 @@ class Album(models.Model):
     class Meta:
         ordering = ['name']
 
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.name
 
 class Artist(models.Model):
     name = models.CharField(max_length=500, null=False)
@@ -27,7 +27,7 @@ class Artist(models.Model):
     image = models.URLField(max_length=300, null=True)
 
     class Meta:
-        ordering = ['name']
+        ordering = ['id']
 
     def __str__(self):
         return self.name
@@ -40,8 +40,8 @@ class Song(models.Model):
     class Meta:
         ordering = ['id']
 
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.name
 
 class Artist_Songs(models.Model):
     song = models.ForeignKey('Song', on_delete=models.PROTECT)
@@ -50,8 +50,8 @@ class Artist_Songs(models.Model):
     class Meta:
         ordering = ['id']
 
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.name
 
 class Playlist(models.Model):
     name = models.CharField(max_length=200, null=False)

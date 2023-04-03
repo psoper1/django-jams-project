@@ -21,4 +21,10 @@ class AlbumSerializer(serializers.ModelSerializer):
 class ArtistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Artist
-        fields = ['name', 'bio', 'image']
+        fields = ['name', 'bio']
+
+class SongSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Song
+        fields = ['name', 'album', 'artist']
+        depth = 1

@@ -29,7 +29,9 @@ class AlbumViewSet(viewsets.ModelViewSet):
     serializer_class = AlbumSerializer
 
 def album_list(request):
-    list_album = Album.objects.values_list('name', 'publish_date', 'cover_art', 'genres')
+    # Error when trying to print anything but a charfield, error says it can't convert them to strings
+    list_album = Album.objects.values_list('name',)
+    # list_album = Album.objects.values_list('name', 'publish_date', 'cover_art', 'genres')
     html = ''
     for album in list_album:
         html += '<h1>%s</h1>' % album
@@ -40,8 +42,24 @@ class ArtistViewSet(viewsets.ModelViewSet):
     serializer_class = ArtistSerializer
 
 def artist_list(request):
-    list_artist = Artist.objects.values_list('name', 'bio', 'image')
+    # Error when trying to print anything but a charfield, error says it can't convert them to strings
+    list_artist = Artist.objects.values_list('name',)
+    # list_artist = Artist.objects.values_list('name', 'bio', 'image')
     html = ''
     for artist in list_artist:
         html += '<h1>%s</h1>' % artist
     return HttpResponse(html)
+
+class SongViewSet(viewsets.ModelViewSet):
+    queryset = Song.objects.all()
+    serializer_class = SongSerializer
+
+def song_list(request):
+    # Error when trying to print anything but a charfield, error says it can't convert them to strings
+    list_song = Song.objects.values_list('name',)
+    # list_song = Song.objects.values_list('name', 'album', 'artist')
+    html = ''
+    for song in list_song:
+        html += '<h1>%s</h1>' % song
+    return HttpResponse(html)
+    
