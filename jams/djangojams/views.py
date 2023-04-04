@@ -17,62 +17,31 @@ class GenreViewSet(viewsets.ModelViewSet):
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
 
-def genre_list(request):
-    list_genre = Genre.objects.values_list('name',)
-    html = ''
-    for genre in list_genre:
-        html += '<h1>%s</h1>' % genre
-    return HttpResponse(html)
-
 class AlbumViewSet(viewsets.ModelViewSet):
     queryset = Album.objects.all()
     serializer_class = AlbumSerializer
+    http_method_names = ('post', 'put', 'patch', 'delete')
 
-def album_list(request):
-    # Error when trying to print anything but a charfield, error says it can't convert them to strings
-    list_album = Album.objects.values_list('name',)
-    # list_album = Album.objects.values_list('name', 'publish_date', 'cover_art', 'genres')
-    html = ''
-    for album in list_album:
-        html += '<h1>%s</h1>' % album
-    return HttpResponse(html)
+class AlbumListViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset= Album.objects.all()
+    serializer_class = AlbumListSerializer
 
 class ArtistViewSet(viewsets.ModelViewSet):
     queryset = Artist.objects.all()
     serializer_class = ArtistSerializer
 
-def artist_list(request):
-    # Error when trying to print anything but a charfield, error says it can't convert them to strings
-    list_artist = Artist.objects.values_list('name',)
-    # list_artist = Artist.objects.values_list('name', 'bio', 'image')
-    html = ''
-    for artist in list_artist:
-        html += '<h1>%s</h1>' % artist
-    return HttpResponse(html)
-
 class SongViewSet(viewsets.ModelViewSet):
     queryset = Song.objects.all()
     serializer_class = SongSerializer
+    http_method_names = ('post', 'put', 'patch', 'delete')
 
-def song_list(request):
-    # Error when trying to print anything but a charfield, error says it can't convert them to strings
-    list_song = Song.objects.values_list('name',)
-    # list_song = Song.objects.values_list('name', 'album', 'artist')
-    html = ''
-    for song in list_song:
-        html += '<h1>%s</h1>' % song
-    return HttpResponse(html)
+class SongListViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Song.objects.all()
+    serializer_class = SongListSerializer
 
 class PlaylistViewSet(viewsets.ModelViewSet):
     queryset = Playlist.objects.all()
     serializer_class = PlaylistSerializer
-
-def playlist_list(request):
-    list_playlist = Playlist.objects.values_list('id', 'name')
-    html = ''
-    for playlist in list_playlist:
-        html += '<h1>%s</h1>' % playlist
-    return HttpResponse(html)
     
 def json(request):
     data = list(Album.objects.values())

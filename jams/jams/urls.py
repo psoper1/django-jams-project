@@ -22,17 +22,14 @@ router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'genres', views.GenreViewSet)
 router.register(r'albums', views.AlbumViewSet)
+router.register(r'albums-list', views.AlbumListViewSet)
 router.register(r'artists', views.ArtistViewSet)
 router.register(r'songs', views.SongViewSet)
+router.register(r'songs-list', views.SongListViewSet)
 router.register(r'playlists', views.PlaylistViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('genres/', views.genre_list),
-    path('albums/', views.album_list),
-    path('artists/', views.artist_list),
-    path('songs/', views.song_list),
-    path('playlists/', views.playlist_list),
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]

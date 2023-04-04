@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from .models import *
+# from .fields import AlbumField
+
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -10,13 +12,19 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
-        fields = ['id', 'name',]
+        fields = ['id', 'name']
 
 class AlbumSerializer(serializers.ModelSerializer):
+    genres = serializers.PrimaryKeyRelatedField(queryset=Genre.objects.all(), many=True)
     class Meta:
         model = Album
         fields = ['id', 'name', 'publish_date', 'cover_art', 'genres']
-        depth = 1
+
+class AlbumListSerializer(serializers.ModelSerializer):
+    genres = GenreSerializer()
+    class Meta:
+        model = Album
+        fields = ['id', 'name', 'publish_date', 'cover_art', 'genres']
 
 class ArtistSerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,10 +32,19 @@ class ArtistSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'bio']
 
 class SongSerializer(serializers.ModelSerializer):
+    album = serializers.PrimaryKeyRelatedField(queryset=Album.objects.all())
+    artist = serializers.PrimaryKeyRelatedField(queryset=Artist.objects.all())
     class Meta:
         model = Song
-        fields = ['id', 'name', 'album', 'artist']
-        depth = 1
+        fields = ["id", "name", "album", "artist"]
+
+class SongListSerializer(serializers.ModelSerializer):
+    album = AlbumSerializer()
+    artist = ArtistSerializer()
+    class Meta:
+        model = Song
+        fields = ["id", "name", "album", "artist"]
+        
 
 class PlaylistSerializer(serializers.ModelSerializer):
     class Meta:
