@@ -24,6 +24,7 @@ router.register(r'genres', views.GenreViewSet)
 router.register(r'albums', views.AlbumViewSet)
 router.register(r'artists', views.ArtistViewSet)
 router.register(r'songs', views.SongViewSet)
+router.register(r'playlists', views.PlaylistViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,4 +32,7 @@ urlpatterns = [
     path('albums/', views.album_list),
     path('artists/', views.artist_list),
     path('songs/', views.song_list),
+    path('playlists/', views.playlist_list),
+    path('api/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]

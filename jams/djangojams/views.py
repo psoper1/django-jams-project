@@ -62,4 +62,18 @@ def song_list(request):
     for song in list_song:
         html += '<h1>%s</h1>' % song
     return HttpResponse(html)
+
+class PlaylistViewSet(viewsets.ModelViewSet):
+    queryset = Playlist.objects.all()
+    serializer_class = PlaylistSerializer
+
+def playlist_list(request):
+    list_playlist = Playlist.objects.values_list('id', 'name')
+    html = ''
+    for playlist in list_playlist:
+        html += '<h1>%s</h1>' % playlist
+    return HttpResponse(html)
     
+def json(request):
+    data = list(Album.objects.values())
+    return JsonResponse(data, safe=False)
