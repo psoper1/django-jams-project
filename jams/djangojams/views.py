@@ -41,7 +41,11 @@ class SongListViewSet(viewsets.ReadOnlyModelViewSet):
 
 class PlaylistViewSet(viewsets.ModelViewSet):
     queryset = Playlist.objects.all()
-    serializer_class = PlaylistSerializer
+    
+    def get_serializer_class(self):
+        if self.action in ['create', 'update', 'partial_update', 'destroy']:
+            return PlaylistWriteSerializer
+        return PlaylistReadOnlySerializer
     
 def json(request):
     data = list(Album.objects.values())

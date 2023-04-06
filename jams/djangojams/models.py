@@ -46,6 +46,5 @@ class Song(models.Model):
 
 class Playlist(models.Model):
     name = models.CharField(max_length=200, null=False)
-    artist = models.ForeignKey('Artist', on_delete=models.PROTECT)
     songs = models.ManyToManyField('Song')
 

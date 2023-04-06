@@ -15,7 +15,7 @@ class GenreSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 class AlbumSerializer(serializers.ModelSerializer):
-    genres = serializers.PrimaryKeyRelatedField(queryset=Genre.objects.all(), many=True)
+    genres = GenreSerializer(many=True)
     class Meta:
         model = Album
         fields = ['id', 'name', 'publish_date', 'cover_art', 'genres']
@@ -46,9 +46,13 @@ class SongListSerializer(serializers.ModelSerializer):
         fields = ["id", "name", "album", "artist"]
         
 
-class PlaylistSerializer(serializers.ModelSerializer):
-    artist = ArtistSerializer()
-    songs = SongListSerializer(many=True)
+class PlaylistWriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Playlist
-        fields = ['id', 'name', 'artist', 'songs']
+        fields = ['id', 'name', 'songs']
+
+class PlaylistReadOnlySerializer(serializers.ModelSerializer):
+    songs = SongListSerializer(many=True, read_only=True)
+    class Meta:
+        model = Playlist
+        fields = ['id', 'name', 'songs']
