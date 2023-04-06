@@ -47,7 +47,8 @@ class SongListSerializer(serializers.ModelSerializer):
         
 
 class PlaylistSerializer(serializers.ModelSerializer):
+    artist = ArtistSerializer()
+    songs = SongListSerializer(many=True)
     class Meta:
         model = Playlist
         fields = ['id', 'name', 'artist', 'songs']
-        depth = 1
